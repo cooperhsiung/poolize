@@ -1,0 +1,26 @@
+{
+  "name": "poolize",
+  "version": "1.0.0",
+  "description": "make resource pooling",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc --declaration",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cooperhsiung/poolize.git"
+  },
+  "keywords": [
+    "pool"
+  ],
+  "author": "cooperhsiung",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cooperhsiung/poolize/issues"
+  },
+  "homepage": "https://github.com/cooperhsiung/poolize#readme",
+  "devDependencies": {
+    "@types/node": "^15.12.2"
+  }
+}
