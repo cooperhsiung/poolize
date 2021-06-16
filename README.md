@@ -13,6 +13,39 @@ npm i poolize -S
 
 ## Usage
 
+```typescript
+import Pool from 'poolize';
+
+class TaskHandler {
+  // your heavy progress
+  async exec(a: number, b: number): Promise<number> {
+    await sleep(300);
+    return a * b;
+  }
+}
+
+const pool = new Pool<TaskHandler>({
+  min: 10,
+  worker: TaskHandler,
+});
+
+async function test() {
+  for (let i = 0; i < 22; i++) {
+    ;(async function () {
+      let worker = await pool.acquire();
+      let result = await worker.exec(i, i);
+      pool.release(worker);
+
+      console.log('job:', i, 'result:', result, 'running:', pool.running, 'idle:', pool.idleSize);
+    })().catch((err) => {
+      console.error(err);
+    });
+  }
+}
+
+test();
+```
+
 
 ## Examples
 
@@ -20,7 +53,7 @@ examples are listed at [examples](https://github.com/cooperhsiung/poolize/tree/m
 
 ## Todo
 
-- [ ] xx
+- [ ] max size
 
 ## Others
 
