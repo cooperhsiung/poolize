@@ -32,9 +32,7 @@ const pool = new Pool<TaskHandler>({
 async function test() {
   for (let i = 0; i < 22; i++) {
     ;(async function () {
-      let worker = await pool.acquire();
-      let result = await worker.exec(i, i);
-      pool.release(worker);
+      const result = await pool.exec(i, i);
 
       console.log('job:', i, 'result:', result, 'running:', pool.running, 'idle:', pool.idleSize);
     })().catch((err) => {
@@ -46,6 +44,15 @@ async function test() {
 test();
 ```
 
+also you can release resource manually
+```typescript
+const worker = await pool.acquire();
+const result = await worker.exec(i, i);
+pool.release(worker);
+
+console.log('job:', i, 'result:', result, 'running:', pool.running, 'idle:', pool.idleSize);
+```
+
 
 ## Examples
 
@@ -53,7 +60,7 @@ examples are listed at [examples](https://github.com/cooperhsiung/poolize/tree/m
 
 ## Todo
 
-- [ ] max size
+- [ ] idle release
 
 ## Others
 

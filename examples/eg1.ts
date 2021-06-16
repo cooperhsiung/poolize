@@ -19,9 +19,7 @@ const pool = new Pool<TaskHandler>({
 async function test() {
   for (let i = 0; i < 22; i++) {
     (async function () {
-      let worker = await pool.acquire();
-      let result = await worker.exec(i, i);
-      pool.release(worker);
+      const result = await pool.exec(i, i);
 
       console.log('job:', i, 'result:', result, 'running:', pool.running, 'idle:', pool.idleSize);
     })().catch((err) => {

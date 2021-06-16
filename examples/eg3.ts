@@ -13,6 +13,7 @@ class TaskHandler {
 
 const pool = new Pool<TaskHandler>({
   min: 10,
+  max: 15,
   worker: TaskHandler,
 });
 

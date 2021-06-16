@@ -12,19 +12,16 @@ const defaultOptions = {
   acquireTimeout: 1000, // 1 second
 };
 
-// min,max, get size,timeout(acquire timeout)
-// idleTimeout, destroy, release,
+// destroy, release,
+// auto recycle?
 
-// min,
-// reach max, throw error
-//
 export default class Pool<T extends Worker> {
   private min: number;
   private max: number;
   private idleTimeout: number;
   private acquireTimeout: number;
-  private factory: new (...args: any) => T;
   //
+  private factory: new (...args: any) => T;
   private idleQueue: T[];
   private deferQueue: ((worker: T) => void)[];
   public running: number;
@@ -34,11 +31,9 @@ export default class Pool<T extends Worker> {
     this.max = options.max || defaultOptions.max;
     this.idleTimeout = options.idleTimeout || defaultOptions.idleTimeout;
     this.acquireTimeout = options.acquireTimeout || defaultOptions.acquireTimeout;
-    this.factory = options.worker;
     // init workers
-    this.idleQueue = Array(this.min)
-      .fill(0)
-      .map((_, i) => new this.factory());
+    this.factory = options.worker;
+    this.idleQueue = Array(this.min).fill(new this.factory());
     // [1,2,3] fifo
     this.deferQueue = [];
     this.running = 0;
@@ -52,13 +47,16 @@ export default class Pool<T extends Worker> {
       if (worker) {
         this.running++;
         return resolve(worker);
+      } else if (this.size < this.max) {
+        this.running++;
+        return resolve(new this.factory());
       } else {
         this.deferQueue.unshift(resolve); // fifo
       }
     });
   }
 
-  // execute taks directly
+  // execute task directly
   async exec(...args: any) {
     const worker = await this.acquire();
     if (worker.exec) {
@@ -96,7 +94,7 @@ export default class Pool<T extends Worker> {
     return this.running + this.idleQueue.length;
   }
 
-  // available workers
+  // available workers number
   get idleSize(): number {
     return this.idleQueue.length;
   }
