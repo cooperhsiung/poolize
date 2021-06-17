@@ -12,7 +12,7 @@ const bcryptHash = async (password) => {
 
 const Utilities = { bcryptHash };
 
-const Pool = require('poolize');
+const Pool = require('poolize').default;
 const TaskHandler = require('./util');
 
 const pool = new Pool({

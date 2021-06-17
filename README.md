@@ -15,6 +15,7 @@ npm i poolize -S
 
 ```typescript
 import Pool from 'poolize';
+// for commonjs -> const Pool = require('poolize').default;
 
 class TaskHandler {
   // your heavy progress
