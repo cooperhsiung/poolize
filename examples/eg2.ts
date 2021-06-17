@@ -1,7 +1,7 @@
 /**
  * Created by Cooper on 2021/06/16.
  */
-import Pool from '../index';
+import { Pool } from '../index';
 
 class TaskHandler {
   // your heavy progress

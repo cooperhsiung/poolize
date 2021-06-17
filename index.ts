@@ -15,7 +15,7 @@ const defaultOptions = {
 // destroy, release,
 // auto recycle?
 
-export default class Pool<T extends Worker> {
+export class Pool<T extends Worker> {
   private min: number;
   private max: number;
   private idleTimeout: number;
@@ -33,7 +33,9 @@ export default class Pool<T extends Worker> {
     this.acquireTimeout = options.acquireTimeout || defaultOptions.acquireTimeout;
     // init workers
     this.factory = options.worker;
-    this.idleQueue = Array(this.min).fill(new this.factory());
+    this.idleQueue = Array(this.min)
+      .fill(1)
+      .map(() => new this.factory());
     // [1,2,3] fifo
     this.deferQueue = [];
     this.running = 0;

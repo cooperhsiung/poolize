@@ -1,6 +1,6 @@
 {
   "name": "poolize",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "make resource pooling",
   "main": "index.js",
   "scripts": {
