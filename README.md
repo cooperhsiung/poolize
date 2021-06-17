@@ -14,7 +14,7 @@ npm i poolize -S
 ## Usage
 
 ```typescript
-import { Pool } from 'poolize';
+import Pool from 'poolize';
 
 class TaskHandler {
   // your heavy progress
@@ -60,6 +60,8 @@ examples are listed at [examples](https://github.com/cooperhsiung/poolize/tree/m
 
 ## Performance
 
+`autocannon http://127.0.0.1:3000/bcrypt`
+
 normal bcrypt
 
 ```
@@ -77,7 +79,7 @@ normal bcrypt
 └───────────┴─────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┘
 ```
 
-after poolize
+after poolize with `worker_threads`
 ```
 ┌─────────┬───────┬───────┬───────┬───────┬──────────┬─────────┬───────────┐
 │ Stat    │ 2.5%  │ 50%   │ 97.5% │ 99%   │ Avg      │ Stdev   │ Max       │

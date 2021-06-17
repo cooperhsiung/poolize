@@ -15,7 +15,7 @@ const defaultOptions = {
 // destroy, release,
 // auto recycle?
 
-export class Pool<T extends Worker> {
+export default class Pool<T extends Worker> {
   private min: number;
   private max: number;
   private idleTimeout: number;
