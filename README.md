@@ -5,6 +5,8 @@
 
 make resource pooling
 
+# :warning:	Deprecated, please goto :point_right:	[cycle-pool](https://github.com/cooperhsiung/cycle-pool)
+
 ## Installation
 
 ```bash
